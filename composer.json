@@ -1,0 +1,25 @@
+{
+    "name": "weedgood/tw-shop",
+    "type": "library",
+    "description": "台灣美安訂單相關的工具",
+    "keywords": ["tw-shop", "tw.shop.com", "美安"],
+    "homepage": "https://github.com/weedgood/tw-shop",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mos Lee",
+            "email": "k471352@gmail.com",
+            "homepage": "https://github.com/weedgood",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+  "require": {
+    "ext-curl": "*"
+  }
+}
+
