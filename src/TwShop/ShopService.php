@@ -24,6 +24,37 @@ class ShopService
         ];
     }
 
+    public function createOrder(ShopOrder $shopOrder, ShopSetting $twShopSetting, $dry_run = false)
+    {
+        $revenue = $twShopSetting->getCommission(
+            $shopOrder->getOrderAmount()
+        );
+
+        $option = $this->option;
+
+        $option['data'] = [
+            'offer_id' => $twShopSetting->getOfferId(),
+            'advertiser_id' => $twShopSetting->getAdvertiserId(),
+            'sale_amount' => $shopOrder->getOrderAmount(),
+            'affiliate_id' => $twShopSetting->getAffiliateId(),
+            'payout' => $revenue,
+            'revenue' => $revenue,
+            'advertiser_info' => $shopOrder->getOrderId(),
+            'affiliate_info1' => $shopOrder->getRid(),
+            'ad_id' => $shopOrder->getClickId(),
+            'session_datetime' => $shopOrder->getCreateStamp(),
+        ];
+
+        $url = "https://api.hasoffers.com/Api?" . http_build_query($option);
+
+        $url = "https://api.hasoffers.com/Api?" .  http_build_query($option);
+
+        if($dry_run)
+            return $url;
+
+        return $this->curl($url);
+    }
+
     public function cancelOrder(ShopOrder $shopOrder, ShopSetting $twShopSetting, $dry_run = false)
     {
         $revenue = $twShopSetting->getCommission(
